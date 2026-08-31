@@ -2,46 +2,38 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>P3B NAMUR - LIVE</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="app-container">
-  <h1>P3B NAMUR - LIVE</h1>
-  <div class="navigation">
-    <button onclick="changerJournee(-1)">Préc.</button>
-    <div>
-      <h2 id="titre-journee" style="margin:0;font-size:16px;text-align:center;color:#fff;">Journée 1</h2>
-      <div id="date-j" style="font-size:12px;text-align:center;color:#aaa;margin-top:2px;">22-23/08/26</div>
+    <div class="container">
+        <h1>P3B NAMUR - LIVE</h1>
+        
+        <div class="nav-journee">
+            <button id="btn-prev" class="btn-nav">Préc.</button>
+            <div class="infos-journee">
+                <h2 id="titre-classement">Journée 1</h2>
+                <span class="date-journee">22-23/08/26</span>
+            </div>
+            <button id="btn-next" class="btn-nav">Suiv.</button>
+        </div>
+
+        <div class="onglets">
+            <button class="tab-btn active">Général</button>
+            <button class="tab-btn">Tranche 1</button>
+            <button class="tab-btn">Tranche 2</button>
+            <button class="tab-btn">Tranche 3</button>
+        </div>
+
+        <div class="matches-section">
+            <h3>Journée 1</h3>
+            <div id="corps-classement">
+                <!-- Les matchs générés par le script s'afficheront ici -->
+            </div>
+        </div>
     </div>
-    <button onclick="changerJournee(1)">Suiv.</button>
-  </div>
-  <div id="liste-matchs"></div>
-  <div class="tabs">
-    <button id="tab-general" class="active" onclick="changerTranche('general')">Général</button>
-    <button id="tab-1" onclick="changerTranche(1)">Tranche 1</button>
-    <button id="tab-2" onclick="changerTranche(2)">Tranche 2</button>
-    <button id="tab-3" onclick="changerTranche(3)">Tranche 3</button>
-  </div>
-  <h3 id="titre-classement" style="color:#00ff66;text-align:left;font-size:14px;margin:15px 0 5px 0;">Classement Général</h3>
-  <table class="tableau-classement">
-    <thead>
-      <tr>
-        <th style="width:10%">Pl</th>
-        <th style="text-align:left; width:46%">Équipe</th>
-        <th>J</th>
-        <th>G</th>
-        <th>+/-</th>
-        <th>Pts</th>
-      </tr>
-    </thead>
-    <tbody id="corps-classement"></tbody>
-  </table>
-</div>
-<<script src="https://unpkg.com"></script>
-<<script src="script.js"></script>
+
+    <script src="script.js"></script>
 </body>
 </html>
-
-
