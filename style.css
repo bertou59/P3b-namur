@@ -1,19 +1,19 @@
-body { background: #121212; color: #fff; font-family: sans-serif; margin: 0; padding: 10px; }
-.app-container { max-width: 500px; margin: 0 auto; }
-h1 { color: #00ff66; text-align: center; font-size: 1.5rem; }
-.navigation { display: flex; justify-content: space-between; align-items: center; background: #1e1e1e; padding: 10px; border-radius: 8px; margin-bottom: 15px; }
-.navigation button, .tabs button { background: #00ff66; color: #000; border: none; padding: 8px 12px; font-weight: bold; border-radius: 4px; cursor: pointer; }
-.tabs { display: flex; gap: 5px; margin-top: 15px; }
-.tabs button { flex: 1; background: #2a2a2a; color: #fff; }
+body { background: #121212; color: #fff; font-family: system-ui, sans-serif; margin: 0; padding: 10px; box-sizing: border-box; }
+.app-container { max-width: 100%; margin: 0 auto; }
+h1 { color: #00ff66; text-align: center; font-size: 1.3rem; margin: 10px 0; }
+.navigation { display: flex; justify-content: space-between; align-items: center; background: #1e1e1e; padding: 8px; border-radius: 8px; margin-bottom: 12px; }
+.navigation button { background: #00ff66; color: #000; border: none; padding: 8px 14px; font-weight: bold; border-radius: 6px; }
+.tabs { display: flex; gap: 4px; margin-top: 12px; }
+.tabs button { flex: 1; background: #2a2a2a; color: #fff; border: none; padding: 8px 4px; font-weight: bold; border-radius: 6px; font-size: 0.75rem; }
 .tabs button.active { background: #00ff66; color: #000; }
-.match-card { display: flex; align-items: center; justify-content: space-between; background: #1e1e1e; padding: 10px; margin-bottom: 8px; border-radius: 6px; }
-.match-fco-namur { border: 2px solid #ffff00; }
-.equipe { width: 40%; font-size: 0.9rem; }
-.domicile { text-align: right; }
-.exterieur { text-align: left; }
-.score-container { display: flex; gap: 5px; width: 20%; justify-content: center; }
-.score-input { width: 30px; text-align: center; background: #333; color: #fff; border: 1px solid #555; padding: 5px; border-radius: 4px; font-size: 1rem; }
-.tableau-classement { width: 100%; border-collapse: collapse; margin-top: 10px; background: #1e1e1e; border-radius: 6px; overflow: hidden; }
-.tableau-classement th, .tableau-classement td { padding: 8px; text-align: center; font-size: 0.85rem; border-bottom: 1px solid #2a2a2a; }
-.tableau-classement th { background: #2a2a2a; color: #00ff66; }
-.ligne-fco-namur { background: #333300; color: #ffff00; font-weight: bold; }
+.match-card { display: flex; align-items: center; justify-content: space-between; background: #1e1e1e; padding: 10px 6px; margin-bottom: 6px; border-radius: 8px; }
+.match-fco-namur { border: 2px solid #ffff00; background: #1a1a00; }
+.equipe { width: 38%; font-size: 0.8rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.domicile { text-align: right; padding-right: 4px; }
+.exterieur { text-align: left; padding-left: 4px; }
+.score-container { display: flex; gap: 4px; width: 24%; justify-content: center; }
+.score-input { width: 32px; height: 32px; text-align: center; background: #2d2d2d; color: #fff; border: 1px solid #444; border-radius: 6px; font-size: 1rem; font-weight: bold; }
+.tableau-classement { width: 100%; border-collapse: collapse; margin-top: 12px; background: #1e1e1e; border-radius: 8px; overflow: hidden; }
+.tableau-classement th, .tableau-classement td { padding: 8px 4px; text-align: center; font-size: 0.75rem; border-bottom: 1px solid #2a2a2a; }
+.tableau-classement th { background: #252525; color: #00ff66; }
+.ligne-fco-namur { background: #2d2d00; color: #ffff00; font-weight: bold; }
