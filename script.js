@@ -36,8 +36,10 @@ function afficherMatchs() {
         html += `
         <div class="match-row">
             <span class="team-name dom">${match.dom}</span>
-            <input type="number" class="score-input" value="${match.scoreDom}" oninput="mettreAJourScore(${index}, 'dom', this.value)">
-            <input type="number" class="score-input" value="${match.scoreExt}" oninput="mettreAJourScore(${index}, 'ext', this.value)">
+            <div class="score-container">
+                <input type="number" class="score-input" value="${match.scoreDom}" oninput="mettreAJourScore(${index}, 'dom', this.value)">
+                <input type="number" class="score-input" value="${match.scoreExt}" oninput="mettreAJourScore(${index}, 'ext', this.value)">
+            </div>
             <span class="team-name ext">${match.ext}</span>
         </div>`;
     });
@@ -55,9 +57,23 @@ window.onload = function() {
     genererCalendrier();
     afficherMatchs();
     
-    const btnPrec = document.getElementById("btn-prev") || document.querySelector(".btn-nav:first-child");
-    const btnSuiv = document.getElementById("btn-next") || document.querySelector(".btn-nav:last-child");
+    const btnPrec = document.getElementById("btn-prev");
+    const btnSuiv = document.getElementById("btn-next");
     
-    if(btnPrec) btnPrec.onclick = () => { if (journeeActuelle > 1) { journeeActuelle--; afficherMatchs(); } };
-    if(btnSuiv) btnSuiv.onclick = () => { if (journeeActuelle < totalJournees) { journeeActuelle++; afficherMatchs(); } };
+    if (btnPrec) {
+        btnPrec.onclick = () => {
+            if (journeeActuelle > 1) {
+                journeeActuelle--;
+                afficherMatchs();
+            }
+        };
+    }
+    if (btnSuiv) {
+        btnSuiv.onclick = () => {
+            if (journeeActuelle < totalJournees) {
+                journeeActuelle++;
+                afficherMatchs();
+            }
+        };
+    }
 };
