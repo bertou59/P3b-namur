@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P3B NAMUR - LIVE</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app-container">
+  <h1>P3B Bureau - LIVE</h1>
+  <div class="navigation">
+    <button onclick="changerJournee(-1)">Préc.</button>
+    <div>
+      <h2 id="titre-journee" style="font-size:1.2rem;">Journée 1</h2>
+      <div id="date-j">22-23/08/26</div>
+    </div>
+    <button onclick="changerJournee(1)">Suiv.</button>
+  </div>
+  <div id="liste-matchs"></div>
+  <div class="tabs">
+    <button id="tab-general" class="active" onclick="changerTranche('general')">Gral</button>
+    <button id="tab-1" onclick="changerTranche(1)">Tranche 1</button>
+    <button id="tab-2" onclick="changerTranche(2)">Tranche 2</button>
+    <button id="tab-3" onclick="changerTranche(3)">Tranche 3</button>
+  </div>
+  <h3 id="titre-classement" style="color:#00ff66; text-align:left; font-size:1rem; margin-top:15px;">Classement Général</h3>
+  <table class="tableau-classement">
+    <thead>
+      <tr>
+        <th style="width:10%">Pl</th>
+        <th style="text-align:left; width:46%">Équipe</th>
+        <th>J</th>
+        <th>G</th>
+        <th>+/-</th>
+        <th>Pts</th>
+      </tr>
+    </thead>
+    <tbody id="corps-classement"></tbody>
+  </table>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
