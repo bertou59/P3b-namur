@@ -1,36 +1,132 @@
-body { background: #121212 !important; color: #ffffff !important; font-family: system-ui, sans-serif !important; margin: 0 !important; padding: 10px !important; }
-.app-container { width: 100% !important; max-width: 480px !important; margin: 0 auto !important; }
-h1 { color: #00ff66 !important; text-align: center !important; font-size: 18px !important; margin: 10px 0 !important; font-weight: bold !important; }
-.navigation { display: flex !important; justify-content: space-between !important; align-items: center !important; background: #1e1e1e !important; padding: 10px !important; border-radius: 8px !important; margin-bottom: 12px !important; }
-.navigation button { background: #00ff66 !important; color: #000000 !important; border: none !important; padding: 8px 14px !important; font-weight: bold !important; border-radius: 6px !important; font-size: 13px !important; }
-.tabs { display: flex !important; gap: 4px !important; margin-top: 15px !important; }
-.tabs button { flex: 1 !important; background: #2a2a2a !important; color: #ffffff !important; border: none !important; padding: 10px 2px !important; font-weight: bold !important; border-radius: 6px !important; font-size: 11px !important; }
-.tabs button.active { background: #00ff66 !important; color: #000000 !important; }
+body {
+    background-color: #0b0b0b;
+    color: #ffffff;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+}
 
-/* RETRECISSEMENT DES CARTES DE MATCHS */
-.match-card { display: grid !important; grid-template-columns: 1fr auto 1fr !important; align-items: center !important; gap: 6px !important; background: #1e1e1e !important; padding: 8px 6px !important; margin-bottom: 6px !important; border-radius: 8px !important; }
-.match-fco-namur { border: 1px solid #ffff00 !important; }
+.container {
+    max-width: 500px;
+    margin: 0 auto;
+}
 
-/* FORCE L'ECRITURE EN JAUNE FLUO POUR LE FCO NAMUR DANS LES MATCHS */
-.match-fco-namur .equipe { color: #ffff00 !important; font-weight: bold !important; }
-.match-card .equipe { font-size: 12px !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; }
-.domicile { text-align: right !important; }
-.exterieur { text-align: left !important; }
+h1 {
+    color: #00ff66;
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
 
-/* FORCE LA DIMENSION ULTRA-PETITE DES CARRES DE SCORE */
-.score-container { display: flex !important; gap: 3px !important; justify-content: center !important; align-items: center !important; width: auto !important; }
-.score-input { width: 25px !important; height: 20px !important; min-width: 25px !important; min-height: 20px !important; max-width: 25px !important; max-height: 20px !important; text-align: center !important; background: #2d2d2d !important; color: #ffffff !important; border: 1px solid #444444 !important; border-radius: 4px !important; font-size: 12px !important; font-weight: bold !important; padding: 0 !important; line-height: 20px !important; }
+/* Navigation Journée */
+.nav-journee {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #161616;
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+}
 
-/* LE TABLEAU DU CLASSEMENT */
-.tableau-classement { width: 100% !important; border-collapse: collapse !important; margin-top: 5px !important; background: #1e1e1e !important; border-radius: 8px !important; overflow: hidden !important; }
-.tableau-classement th, .tableau-classement td { padding: 10px 4px !important; text-align: center !important; font-size: 12px !important; border-bottom: 1px solid #2a2a2a !important; }
-.tableau-classement th { background: #252525 !important; color: #00ff66 !important; }
+.infos-journee {
+    text-align: center;
+}
 
-/* POINTS EN BLEU FLUO */
-.tableau-classement th:last-child { color: #00d2ff !important; }
-.tableau-classement td:last-child { color: #00d2ff !important; font-weight: bold !important; }
+.infos-journee h2 {
+    margin: 0;
+    font-size: 22px;
+}
 
-/* LIGNE JAUNE SANS FOND DANS LE CLASSEMENT */
-.ligne-fco-namur { color: #ffff00 !important; font-weight: bold !important; }
-.ligne-fco-namur td { color: #ffff00 !important; }
-.ligne-fco-namur td:last-child { color: #00d2ff !important; }
+.date-journee {
+    color: #888;
+    font-size: 14px;
+}
+
+.btn-nav {
+    background: #00ff66;
+    color: #000;
+    border: none;
+    padding: 10px 20px;
+    font-weight: bold;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+/* Onglets */
+.onglets {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    overflow-x: auto;
+}
+
+.tab-btn {
+    background: #222;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    flex: 1;
+    white-space: nowrap;
+    font-size: 14px;
+}
+
+.tab-btn.active {
+    background: #00ff66;
+    color: #000;
+    font-weight: bold;
+}
+
+/* Sections Matchs */
+h3 {
+    color: #00ff66;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.match-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #161616;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 12px;
+}
+
+.team-name {
+    width: 38%;
+    font-size: 16px;
+}
+
+.team-name.dom {
+    text-align: right;
+}
+
+.team-name.ext {
+    text-align: left;
+}
+
+/* Inputs scores */
+.score-container {
+    display: flex;
+    gap: 6px;
+}
+
+.score-input {
+    width: 42px;
+    height: 38px;
+    text-align: center;
+    background: #2a2a2a;
+    color: #fff;
+    border: 1px solid #333;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.score-input:focus {
+    outline: 2px solid #00ff66;
+}
