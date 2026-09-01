@@ -19,17 +19,36 @@
             <button id="btn-next" class="btn-nav">Suiv.</button>
         </div>
 
-        <div class="onglets-tranches">
-            <button class="tab-btn active">Gral</button>
-            <button class="tab-btn">Tranche 1</button>
-            <button class="tab-btn">Tranche 2</button>
-            <button class="tab-btn">Tranche 3</button>
-        </div>
-
         <div class="zone-matchs">
-            <div id="corps-classement">
+            <div id="corps-matchs">
                 <!-- Les lignes de matchs s'afficheront ici -->
             </div>
+        </div>
+
+        <div class="onglets-tranches">
+            <button class="tab-btn active" onclick="changerOnglet('general')">Gral</button>
+            <button class="tab-btn" onclick="changerOnglet('t1')">Tranche 1</button>
+            <button class="tab-btn" onclick="changerOnglet('t2')">Tranche 2</button>
+            <button class="tab-btn" onclick="changerOnglet('t3')">Tranche 3</button>
+        </div>
+
+        <div class="zone-classement">
+            <h3 id="titre-classement-tab" style="color: #00ff66; margin-top: 20px;">Classement Général</h3>
+            <table class="classement-table">
+                <thead>
+                    <tr>
+                        <th>Pl</th>
+                        <th style="text-align:left;">Équipe</th>
+                        <th>J</th>
+                        <th>G</th>
+                        <th>+/-</th>
+                        <th>Pts</th>
+                    </tr>
+                </thead>
+                <tbody id="corps-classement">
+                    <!-- Le tableau calculé s'affichera ici -->
+                </tbody>
+            </table>
         </div>
     </div>
 
