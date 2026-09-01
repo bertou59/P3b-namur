@@ -4,7 +4,8 @@ const equipes = [
     "Boninne A", "Ligny B", "FCO Namur", "Loyers B"
 ];
 
-const calendrierFixe = {
+// Le vrai calendrier officiel issu de la DH (Journées 1 à 15)
+const calendrierDH = {
     1: [{dom:"Leuze A",ext:"Loyers B"},{dom:"Naninne B",ext:"FCO Namur"},{dom:"Wépion B",ext:"Ligny B"},{dom:"Rhisnes B",ext:"Boninne A"},{dom:"Aische B",ext:"Grand-Leez B"},{dom:"Sauvenière A",ext:"Mazy A"},{dom:"St-Germain",ext:"Petit-Waret A"},{dom:"Temploux",ext:"Emines B"}],
     2: [{dom:"Emines B",ext:"Leuze A"},{dom:"Petit-Waret A",ext:"Temploux"},{dom:"Mazy A",ext:"St-Germain"},{dom:"Grand-Leez B",ext:"Sauvenière A"},{dom:"Boninne A",ext:"Aische B"},{dom:"Ligny B",ext:"Rhisnes B"},{dom:"FCO Namur",ext:"Wépion B"},{dom:"Loyers B",ext:"Naninne B"}],
     3: [{dom:"Leuze A",ext:"Naninne B"},{dom:"Wépion B",ext:"Loyers B"},{dom:"Rhisnes B",ext:"FCO Namur"},{dom:"Aische B",ext:"Ligny B"},{dom:"Sauvenière A",ext:"Boninne A"},{dom:"St-Germain",ext:"Grand-Leez B"},{dom:"Temploux",ext:"Mazy A"},{dom:"Emines B",ext:"Petit-Waret A"}],
@@ -28,11 +29,12 @@ let journeeActuelle = 1;
 let ongletActif = 'general';
 
 function genererCalendrierComplet() {
-    // Génère automatiquement les journées 1 à 15 (Aller) et 16 à 30 (Retour avec inversion des terrains)
     for (let j = 1; j <= 15; j++) {
-        donneesJournees[j] = calendrierFixe[j].map(m => ({ ...m, scoreDom: "", scoreExt: "" }));
+        // Matchs Aller
+        donneesJournees[j] = calendrierDH[j].map(m => ({ dom: m.dom, ext: m.ext, scoreDom: "", scoreExt: "" }));
+        // Matchs Retour (Inversion Domicile / Extérieur pour arriver à 30 journées)
         let jr = j + 15;
-        donneesJournees[jr] = calendrierFixe[j].map(m => ({ dom: m.ext, ext: m.dom, scoreDom: "", scoreExt: "" }));
+        donneesJournees[jr] = calendrierDH[j].map(m => ({ dom: m.ext, ext: m.dom, scoreDom: "", scoreExt: "" }));
     }
 }
 
