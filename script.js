@@ -1,175 +1,37 @@
 const equipes = [
-    "Leuze A", "Naninne B", "Wépion B", "Rhisnes B",
-    "Aische B", "Sauvenière A", "St-Germain", "Temploux",
-    "Emines B", "Petit-Waret A", "Mazy A", "Grand-Leez B",
+    "Leuze A", "Naninne B", "Wépion B", "Rhisnes B", "Aische B", "Sauvenière A", 
+    "St-Germain", "Temploux", "Emines B", "Petit-Waret A", "Mazy A", "Grand-Leez B", 
     "Boninne A", "Ligny B", "FCO Namur", "Loyers B"
 ];
 
 const calendrierFixe = {
-    1: [
-        { dom: "Leuze A", ext: "Loyers B" },
-        { dom: "Naninne B", ext: "FCO Namur" },
-        { dom: "Wépion B", ext: "Ligny B" },
-        { dom: "Rhisnes B", ext: "Boninne A" },
-        { dom: "Aische B", ext: "Grand-Leez B" },
-        { dom: "Sauvenière A", ext: "Mazy A" },
-        { dom: "St-Germain", ext: "Petit-Waret A" },
-        { dom: "Temploux", ext: "Emines B" }
-    ],
-    2: [
-        { dom: "Emines B", ext: "Leuze A" },
-        { dom: "Petit-Waret A", ext: "Temploux" },
-        { dom: "Mazy A", ext: "St-Germain" },
-        { dom: "Grand-Leez B", ext: "Sauvenière A" },
-        { dom: "Boninne A", ext: "Aische B" },
-        { dom: "Ligny B", ext: "Rhisnes B" },
-        { dom: "FCO Namur", ext: "Wépion B" },
-        { dom: "Loyers B", ext: "Naninne B" }
-    ],
-    3: [
-        { dom: "Leuze A", ext: "Naninne B" },
-        { dom: "Wépion B", ext: "Loyers B" },
-        { dom: "Rhisnes B", ext: "FCO Namur" },
-        { dom: "Aische B", ext: "Ligny B" },
-        { dom: "Sauvenière A", ext: "Boninne A" },
-        { dom: "St-Germain", ext: "Grand-Leez B" },
-        { dom: "Temploux", ext: "Mazy A" },
-        { dom: "Emines B", ext: "Petit-Waret A" }
-    ],
-    4: [
-        { dom: "Petit-Waret A", ext: "Leuze A" },
-        { dom: "Mazy A", ext: "Emines B" },
-        { dom: "Grand-Leez B", ext: "Temploux" },
-        { dom: "Boninne A", ext: "St-Germain" },
-        { dom: "Ligny B", ext: "Sauvenière A" },
-        { dom: "FCO Namur", ext: "Aische B" },
-        { dom: "Loyers B", ext: "Rhisnes B" },
-        { dom: "Naninne B", ext: "Wépion B" }
-    ],
-    5: [
-        { dom: "Leuze A", ext: "Wépion B" },
-        { dom: "Rhisnes B", ext: "Naninne B" },
-        { dom: "Aische B", ext: "Loyers B" },
-        { dom: "Sauvenière A", ext: "FCO Namur" },
-        { dom: "St-Germain", ext: "Ligny B" },
-        { dom: "Temploux", ext: "Boninne A" },
-        { dom: "Emines B", ext: "Grand-Leez B" },
-        { dom: "Petit-Waret A", ext: "Mazy A" }
-    ]
+    1: [["Leuze A","Loyers B"],["Naninne B","FCO Namur"],["Wépion B","Ligny B"],["Rhisnes B","Boninne A"],["Aische B","Grand-Leez B"],["Sauvenière A","Mazy A"],["St-Germain","Petit-Waret A"],["Temploux","Emines B"]],
+    2: [["Emines B","Leuze A"],["Petit-Waret A","Temploux"],["Mazy A","St-Germain"],["Grand-Leez B","Sauvenière A"],["Boninne A","Aische B"],["Ligny B","Rhisnes B"],["FCO Namur","Wépion B"],["Loyers B","Naninne B"]],
+    3: [["Leuze A","Naninne B"],["Wépion B","Loyers B"],["Rhisnes B","FCO Namur"],["Aische B","Ligny B"],["Sauvenière A","Boninne A"],["St-Germain","Grand-Leez B"],["Temploux","Mazy A"],["Emines B","Petit-Waret A"]],
+    4: [["Petit-Waret A","Leuze A"],["Mazy A","Emines B"],["Grand-Leez B","Temploux"],["Boninne A","St-Germain"],["Ligny B","Sauvenière A"],["FCO Namur","Aische B"],["Loyers B","Rhisnes B"],["Naninne B","Wépion B"]],
+    5: [["Leuze A","Wépion B"],["Rhisnes B","Naninne B"],["Aische B","Loyers B"],["Sauvenière A","FCO Namur"],["St-Germain","Ligny B"],["Temploux","Boninne A"],["Emines B","Grand-Leez B"],["Petit-Waret A","Mazy A"]],
+    6: [["Mazy A","Leuze A"],["Grand-Leez B","Petit-Waret A"],["Boninne A","Emines B"],["Ligny B","Temploux"],["FCO Namur","St-Germain"],["Loyers B","Sauvenière A"],["Naninne B","Aische B"],["Wépion B","Rhisnes B"]],
+    7: [["Leuze A","Rhisnes B"],["Aische B","Wépion B"],["Sauvenière A","Naninne B"],["St-Germain","Loyers B"],["Temploux","FCO Namur"],["Emines B","Ligny B"],["Petit-Waret A","Boninne A"],["Mazy A","Grand-Leez B"]],
+    8: [["Grand-Leez B","Leuze A"],["Boninne A","Mazy A"],["Ligny B","Petit-Waret A"],["FCO Namur","Emines B"],["Loyers B","Temploux"],["Naninne B","St-Germain"],["Wépion B","Sauvenière A"],["Rhisnes B","Aische B"]],
+    9: [["Leuze A","Aische B"],["Sauvenière A","Rhisnes B"],["St-Germain","Wépion B"],["Temploux","Naninne B"],["Emines B","Loyers B"],["Petit-Waret A","FCO Namur"],["Mazy A","Ligny B"],["Grand-Leez B","Boninne A"]],
+    10: [["Boninne A","Leuze A"],["Ligny B","Grand-Leez B"],["FCO Namur","Mazy A"],["Loyers B","Petit-Waret A"],["Naninne B","Emines B"],["Wépion B","Temploux"],["Rhisnes B","St-Germain"],["Aische B","Sauvenière A"]],
+    11: [["Leuze A","Sauvenière A"],["St-Germain","Aische B"],["Temploux","Rhisnes B"],["Emines B","Wépion B"],["Petit-Waret A","Naninne B"],["Mazy A","Loyers B"],["Grand-Leez B","FCO Namur"],["Boninne A","Ligny B"]],
+    12: [["Ligny B","Leuze A"],["FCO Namur","Boninne A"],["Loyers B","Grand-Leez B"],["Naninne B","Mazy A"],["Wépion B","Petit-Waret A"],["Rhisnes B","Emines B"],["Aische B","Temploux"],["Sauvenière A","St-Germain"]],
+    13: [["Leuze A","St-Germain"],["Temploux","Sauvenière A"],["Emines B","Aische B"],["Petit-Waret A","Rhisnes B"],["Mazy A","Wépion B"],["Grand-Leez B","Naninne B"],["Boninne A","Loyers B"],["Ligny B","FCO Namur"]],
+    14: [["FCO Namur","Leuze A"],["Loyers B","Ligny B"],["Naninne B","Boninne A"],["Wépion B","Grand-Leez B"],["Rhisnes B","Mazy A"],["Aische B","Petit-Waret A"],["Sauvenière A","Emines B"],["St-Germain","Temploux"]],
+    15: [["Leuze A","Temploux"],["Emines B","St-Germain"],["Petit-Waret A","Sauvenière A"],["Mazy A","Aische B"],["Grand-Leez B","Rhisnes B"],["Boninne A","Wépion B"],["Ligny B","Naninne B"],["FCO Namur","Loyers B"]]
 };
-const calendrierSuite = {
-    6: [
-        { dom: "Mazy A", ext: "Leuze A" },
-        { dom: "Grand-Leez B", ext: "Petit-Waret A" },
-        { dom: "Boninne A", ext: "Emines B" },
-        { dom: "Ligny B", ext: "Temploux" },
-        { dom: "FCO Namur", ext: "St-Germain" },
-        { dom: "Loyers B", ext: "Sauvenière A" },
-        { dom: "Naninne B", ext: "Aische B" },
-        { dom: "Wépion B", ext: "Rhisnes B" }
-    ],
-    7: [
-        { dom: "Leuze A", ext: "Rhisnes B" },
-        { dom: "Aische B", ext: "Wépion B" },
-        { dom: "Sauvenière A", ext: "Naninne B" },
-        { dom: "St-Germain", ext: "Loyers B" },
-        { dom: "Temploux", ext: "FCO Namur" },
-        { dom: "Emines B", ext: "Ligny B" },
-        { dom: "Petit-Waret A", ext: "Boninne A" },
-        { dom: "Mazy A", ext: "Grand-Leez B" }
-    ],
-    8: [
-        { dom: "Grand-Leez B", ext: "Leuze A" },
-        { dom: "Boninne A", ext: "Mazy A" },
-        { dom: "Ligny B", ext: "Petit-Waret A" },
-        { dom: "FCO Namur", ext: "Emines B" },
-        { dom: "Loyers B", ext: "Temploux" },
-        { dom: "Naninne B", ext: "St-Germain" },
-        { dom: "Wépion B", ext: "Sauvenière A" },
-        { dom: "Rhisnes B", ext: "Aische B" }
-    ],
-    9: [
-        { dom: "Leuze A", ext: "Aische B" },
-        { dom: "Sauvenière A", ext: "Rhisnes B" },
-        { dom: "St-Germain", ext: "Wépion B" },
-        { dom: "Temploux", ext: "Naninne B" },
-        { dom: "Emines B", ext: "Loyers B" },
-        { dom: "Petit-Waret A", ext: "FCO Namur" },
-        { dom: "Mazy A", ext: "Ligny B" },
-        { dom: "Grand-Leez B", ext: "Boninne A" }
-    ],
-    10: [
-        { dom: "Boninne A", ext: "Leuze A" },
-        { dom: "Ligny B", ext: "Grand-Leez B" },
-        { dom: "FCO Namur", ext: "Mazy A" },
-        { dom: "Loyers B", ext: "Petit-Waret A" },
-        { dom: "Naninne B", ext: "Emines B" },
-        { dom: "Wépion B", ext: "Temploux" },
-        { dom: "Rhisnes B", ext: "St-Germain" },
-        { dom: "Aische B", ext: "Sauvenière A" }
-    ],
-    11: [
-        { dom: "Leuze A", ext: "Sauvenière A" },
-        { dom: "St-Germain", ext: "Aische B" },
-        { dom: "Temploux", ext: "Rhisnes B" },
-        { dom: "Emines B", ext: "Wépion B" },
-        { dom: "Petit-Waret A", ext: "Naninne B" },
-        { dom: "Mazy A", ext: "Loyers B" },
-        { dom: "Grand-Leez B", ext: "FCO Namur" },
-        { dom: "Boninne A", ext: "Ligny B" }
-    ],
-    12: [
-        { dom: "Ligny B", ext: "Leuze A" },
-        { dom: "FCO Namur", ext: "Boninne A" },
-        { dom: "Loyers B", ext: "Grand-Leez B" },
-        { dom: "Naninne B", ext: "Mazy A" },
-        { dom: "Wépion B", ext: "Petit-Waret A" },
-        { dom: "Rhisnes B", ext: "Emines B" },
-        { dom: "Aische B", ext: "Temploux" },
-        { dom: "Sauvenière A", ext: "St-Germain" }
-    ],
-    13: [
-        { dom: "Leuze A", ext: "St-Germain" },
-        { dom: "Temploux", ext: "Sauvenière A" },
-        { dom: "Emines B", ext: "Aische B" },
-        { dom: "Petit-Waret A", ext: "Rhisnes B" },
-        { dom: "Mazy A", ext: "Wépion B" },
-        { dom: "Grand-Leez B", ext: "Naninne B" },
-        { dom: "Boninne A", ext: "Loyers B" },
-        { dom: "Ligny B", ext: "FCO Namur" }
-    ],
-    14: [
-        { dom: "FCO Namur", ext: "Leuze A" },
-        { dom: "Loyers B", ext: "Ligny B" },
-        { dom: "Naninne B", ext: "Boninne A" },
-        { dom: "Wépion B", ext: "Grand-Leez B" },
-        { dom: "Rhisnes B", ext: "Mazy A" },
-        { dom: "Aische B", ext: "Petit-Waret A" },
-        { dom: "Sauvenière A", ext: "Emines B" },
-        { dom: "St-Germain", ext: "Temploux" }
-    ],
-    15: [
-        { dom: "Leuze A", ext: "Temploux" },
-        { dom: "Emines B", ext: "St-Germain" },
-        { dom: "Petit-Waret A", ext: "Sauvenière A" },
-        { dom: "Mazy A", ext: "Aische B" },
-        { dom: "Grand-Leez B", ext: "Rhisnes B" },
-        { dom: "Boninne A", ext: "Wépion B" },
-        { dom: "Ligny B", ext: "Naninne B" },
-        { dom: "FCO Namur", ext: "Loyers B" }
-    ]
-};let donneesJournees = {};
+
+let donneesJournees = {};
 const totalJournees = 30;
 let journeeActuelle = 1;
 let ongletActif = 'general';
 
 function genererCalendrierComplet() {
-    // Fusionne toutes les journées fixes
-    const calendrierComplet = { ...calendrierFixe, ...calendrierSuite };
     for (let j = 1; j <= 15; j++) {
-        donneesJournees[j] = calendrierComplet[j].map(m => ({ ...m, scoreDom: "", scoreExt: "" }));
+        donneesJournees[j] = calendrierFixe[j].map(m => ({ dom: m[0], ext: m[1], scoreDom: "", scoreExt: "" }));
         let jr = j + 15;
-        donneesJournees[jr] = calendrierComplet[j].map(m => ({ dom: m.ext, ext: m.dom, scoreDom: "", scoreExt: "" }));
+        donneesJournees[jr] = calendrierFixe[j].map(m => ({ dom: m[1], ext: m[0], scoreDom: "", scoreExt: "" }));
     }
 }
 
@@ -182,7 +44,6 @@ function afficherMatchs() {
     let html = "";
     matchs.forEach((match, index) => {
         let ligneClasse = (match.dom === "FCO Namur" || match.ext === "FCO Namur") ? "match-row fco-namur-row-highlight" : "match-row";
-        
         html += `
         <div class="${ligneClasse}">
             <span class="team-name dom">${match.dom}</span>
@@ -279,4 +140,3 @@ window.onload = function() {
     if (btnPrec) btnPrec.onclick = () => { if (journeeActuelle > 1) { journeeActuelle--; afficherMatchs(); } };
     if (btnSuiv) btnSuiv.onclick = () => { if (journeeActuelle < totalJournees) { journeeActuelle++; afficherMatchs(); } };
 };
-
