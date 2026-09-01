@@ -50,11 +50,26 @@ function mettreAJourScore(indexMatch, type, valeur) {
     if (donneesJournees[journeeActuelle] && donneesJournees[journeeActuelle][indexMatch]) {
         if (type === 'dom') donneesJournees[journeeActuelle][indexMatch].scoreDom = valeur;
         if (type === 'ext') donneesJournees[journeeActuelle][indexMatch].scoreExt = valeur;
+        // Sauvegarde automatique dans la mémoire du smartphone
+        localStorage.setItem('score-j' + journeeActuelle + '-m' + indexMatch + '-' + type, valeur);
+    }
+}
+
+function chargerScoresSauvegardes() {
+    for (let j = 1; j <= totalJournees; j++) {
+        if (!donneesJournees[j]) continue;
+        donneesJournees[j].forEach((match, index) => {
+            let sDom = localStorage.getItem('score-j' + j + '-m' + index + '-dom');
+            let sExt = localStorage.getItem('score-j' + j + '-m' + index + '-ext');
+            if (sDom !== null) match.scoreDom = sDom;
+            if (sExt !== null) match.scoreExt = sExt;
+        });
     }
 }
 
 window.onload = function() {
     genererCalendrier();
+    chargerScoresSauvegardes();
     afficherMatchs();
     
     const btnPrec = document.getElementById("btn-prev");
