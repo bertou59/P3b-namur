@@ -4,51 +4,46 @@ const equipes = [
     "Boninne A", "Ligny B", "FCO Namur", "RUS Loyers B"
 ];
 
-// Le vrai calendrier officiel de la DH (Journées 1 et 2 validées avec vos photos)
-const calendrierFixe = {
+const donneesJournees = {
     1: [
-        { dom: "Leuze A", ext: "Naninne B" },
-        { dom: "CS Wépion B", ext: "Rhisnes B" },
-        { dom: "Aische B", ext: "RWA Sauvenière" },
-        { dom: "St-Germain", ext: "Temploux" },
-        { dom: "Emines B", ext: "Pt-Waret A" },
-        { dom: "Mazy", ext: "Gd-Leez B" },
-        { dom: "Boninne A", ext: "Ligny B" },
-        { dom: "FCO Namur", ext: "RUS Loyers B" }
+        { dom: "Leuze A", ext: "Naninne B", scoreDom: "", scoreExt: "" },
+        { dom: "CS Wépion B", ext: "Rhisnes B", scoreDom: "", scoreExt: "" },
+        { dom: "Aische B", ext: "RWA Sauvenière", scoreDom: "", scoreExt: "" },
+        { dom: "St-Germain", ext: "Temploux", scoreDom: "", scoreExt: "" },
+        { dom: "Emines B", ext: "Pt-Waret A", scoreDom: "", scoreExt: "" },
+        { dom: "Mazy", ext: "Gd-Leez B", scoreDom: "", scoreExt: "" },
+        { dom: "Boninne A", ext: "Ligny B", scoreDom: "", scoreExt: "" },
+        { dom: "FCO Namur", ext: "RUS Loyers B", scoreDom: "", scoreExt: "" }
     ],
     2: [
-        { dom: "Rhisnes B", ext: "St-Germain" },
-        { dom: "Naninne B", ext: "Mazy" },
-        { dom: "RWA Sauvenière", ext: "CS Wépion B" },
-        { dom: "RUS Loyers B", ext: "Aische B" },
-        { dom: "Ligny B", ext: "FCO Namur" },
-        { dom: "Gd-Leez B", ext: "Boninne A" },
-        { dom: "Pt-Waret A", ext: "Leuze A" },
-        { dom: "Temploux", ext: "Emines B" }
+        { dom: "Rhisnes B", ext: "St-Germain", scoreDom: "", scoreExt: "" },
+        { dom: "Naninne B", ext: "Mazy", scoreDom: "", scoreExt: "" },
+        { dom: "RWA Sauvenière", ext: "CS Wépion B", scoreDom: "", scoreExt: "" },
+        { dom: "RUS Loyers B", ext: "Aische B", scoreDom: "", scoreExt: "" },
+        { dom: "Ligny B", ext: "FCO Namur", scoreDom: "", scoreExt: "" },
+        { dom: "Gd-Leez B", ext: "Boninne A", scoreDom: "", scoreExt: "" },
+        { dom: "Pt-Waret A", ext: "Leuze A", scoreDom: "", scoreExt: "" },
+        { dom: "Temploux", ext: "Emines B", scoreDom: "", scoreExt: "" }
     ]
 };
 
-let donneesJournees = {};
 const totalJournees = 30;
 let journeeActuelle = 1;
 let ongletActif = 'general';
 
-function genererCalendrierComplet() {
-    // Initialise les structures pour les 30 journées
-    for (let j = 1; j <= totalJournees; j++) {
-        donneesJournees[j] = [];
-    }
-    
-    // Injecte les vraies journées 1 et 2
-    donneesJournees[1] = calendrierFixe[1].map(m => ({ ...m, scoreDom: "", scoreExt: "" }));
-    donneesJournees[2] = calendrierFixe[2].map(m => ({ ...m, scoreDom: "", scoreExt: "" }));
-
-    // Génère le reste des journées pour éviter les bugs d'affichage en attendant les vrais matchs
-    for (let j = 3; j <= 15; j++) {
-        donneesJournees[j] = calendrierFixe[1].map(m => ({ dom: m.dom, ext: m.ext, scoreDom: "", scoreExt: "" }));
-    }
-    for (let j = 16; j <= 30; j++) {
-        donneesJournees[j] = calendrierFixe[1].map(m => ({ dom: m.ext, ext: m.dom, scoreDom: "", scoreExt: "" }));
+function remplirResteDuCalendrier() {
+    // Remplissage de sécurité des journées 3 à 30 pour éviter tout plantage de l'application
+    for (let j = 3; j <= totalJournees; j++) {
+        donneesJournees[j] = [
+            { dom: "Leuze A", ext: "Naninne B", scoreDom: "", scoreExt: "" },
+            { dom: "CS Wépion B", ext: "Rhisnes B", scoreDom: "", scoreExt: "" },
+            { dom: "Aische B", ext: "RWA Sauvenière", scoreDom: "", scoreExt: "" },
+            { dom: "St-Germain", ext: "Temploux", scoreDom: "", scoreExt: "" },
+            { dom: "Emines B", ext: "Pt-Waret A", scoreDom: "", scoreExt: "" },
+            { dom: "Mazy", ext: "Gd-Leez B", scoreDom: "", scoreExt: "" },
+            { dom: "Boninne A", ext: "Ligny B", scoreDom: "", scoreExt: "" },
+            { dom: "FCO Namur", ext: "RUS Loyers B", scoreDom: "", scoreExt: "" }
+        ];
     }
 }
 
@@ -131,7 +126,7 @@ function changerOnglet(type) {
     document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
     const titres = { general: "Classement Général", t1: "Classement Tranche 1", t2: "Classement Tranche 2", t3: "Classement Tranche 3" };
     document.getElementById("titre-classement-tab").innerText = titres[type];
-    event.target.classList.add('active');
+    if (event && event.target) event.target.classList.add('active');
     calculerEtAfficherClassement();
 }
 
@@ -148,7 +143,7 @@ function chargerScoresSauvegardes() {
 }
 
 window.onload = function() {
-    genererCalendrierComplet();
+    remplirResteDuCalendrier();
     chargerScoresSauvegardes();
     afficherMatchs();
     calculerEtAfficherClassement();
