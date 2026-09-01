@@ -32,7 +32,6 @@ let journeeActuelle = 1;
 let ongletActif = 'general';
 
 function remplirResteDuCalendrier() {
-    // Remplissage de sécurité des journées 3 à 30 pour éviter tout plantage de l'application
     for (let j = 3; j <= totalJournees; j++) {
         donneesJournees[j] = [
             { dom: "Leuze A", ext: "Naninne B", scoreDom: "", scoreExt: "" },
@@ -96,7 +95,7 @@ function calculerEtAfficherClassement() {
                     eqDom.diff += (sDom - sExt);
                     eqExt.diff += (sExt - sDom);
                     if (sDom > sExt) { eqDom.g++; eqDom.pts += 3; }
-                    else if (sExt > sDom) { eqExt.g++; eqExt.pts += 3; }
+                    else if (sExt > sDom) { eqExt.g++; eqDom.pts += 3; }
                     else { eqDom.pts += 1; eqExt.pts += 1; }
                 }
             }
