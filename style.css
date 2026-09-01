@@ -70,8 +70,9 @@ body {
     margin-bottom: 8px;
     border-radius: 8px;
 }
+/* Élargissement de la zone centrale pour créer le grand écart */
 .team-name {
-    width: 42%;
+    width: 35%; /* Réduit pour laisser les scores respirer */
     font-size: 14px;
     white-space: nowrap;
     overflow: hidden;
@@ -85,9 +86,10 @@ body {
 }
 .score-container {
     display: flex;
-    gap: 4px;
+    gap: 25px; /* Grand écartement entre le carré domicile et extérieur */
+    width: 20%;
+    justify-content: center;
 }
-/* Carrés de score miniaturisés (très petits) */
 .score-input {
     width: 18px; 
     height: 16px;
@@ -119,9 +121,8 @@ body {
     text-align: center;
     font-size: 14px;
     border-bottom: 1px solid #333;
-    white-space: nowrap; /* Empêche les noms de s'afficher sur 2 lignes en bas */
+    white-space: nowrap;
 }
-/* Style pour colorer TOUTE la ligne en jaune (texte et chiffres) */
 .fco-namur-row-highlight, .fco-namur-row-highlight td {
     color: #ffff00 !important;
     font-weight: bold;
