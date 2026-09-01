@@ -8,6 +8,7 @@ const equipes = [
 let donneesJournees = {};
 const totalJournees = 30;
 let journeeActuelle = 1;
+let ongletActif = 'general';
 
 function genererCalendrier() {
     let listeEquipes = [...equipes];
@@ -24,7 +25,7 @@ function genererCalendrier() {
 }
 
 function afficherMatchs() {
-    const conteneur = document.getElementById("corps-classement");
+    const conteneur = document.getElementById("corps-matchs");
     if (!conteneur) return;
     
     const titre = document.getElementById("titre-classement");
@@ -50,9 +51,70 @@ function mettreAJourScore(indexMatch, type, valeur) {
     if (donneesJournees[journeeActuelle] && donneesJournees[journeeActuelle][indexMatch]) {
         if (type === 'dom') donneesJournees[journeeActuelle][indexMatch].scoreDom = valeur;
         if (type === 'ext') donneesJournees[journeeActuelle][indexMatch].scoreExt = valeur;
-        // Sauvegarde automatique dans la mémoire du smartphone
         localStorage.setItem('score-j' + journeeActuelle + '-m' + indexMatch + '-' + type, valeur);
+        calculerEtAfficherClassement();
     }
+}
+
+function calculerEtAfficherClassement() {
+    let classement = equipes.map(nom => ({ nom: nom, j: 0, g: 0, diff: 0, pts: 0 }));
+
+    for (let j = 1; j <= totalJournees; j++) {
+        // Filtre pour les tranches (Tranche 1: J1-10, Tranche 2: J11-20, Tranche 3: J21-30)
+        if (ongletActif === 't1' && (j < 1 || j > 10)) continue;
+        if (ongletActif === 't2' && (j < 11 || j > 20)) continue;
+        if (ongletActif === 't3' && (j < 21 || j > 30)) continue;
+
+        if (!donneesJournees[j]) continue;
+        donneesJournees[j].forEach(match => {
+            if (match.scoreDom !== "" && match.scoreExt !== "") {
+                let sDom = parseInt(match.scoreDom);
+                let sExt = parseInt(match.scoreExt);
+                let eqDom = classement.find(e => e.nom === match.dom);
+                let eqExt = classement.find(e => e.nom === match.ext);
+
+                if (eqDom && eqExt) {
+                    eqDom.j++; eqExt.j++;
+                    eqDom.diff += (sDom - sExt);
+                    eqExt.diff += (sExt - sDom);
+
+                    if (sDom > sExt) { eqDom.g++; eqDom.pts += 3; }
+                    else if (sExt > sDom) { eqExt.g++; eqExt.pts += 3; }
+                    else { eqDom.pts += 1; eqExt.pts += 1; }
+                }
+            }
+        });
+    }
+
+    classement.sort((a, b) => b.pts - a.pts || b.g - a.g || b.diff - a.diff);
+
+    const corps = document.getElementById("corps-classement");
+    if (!corps) return;
+    
+    let html = "";
+    classement.forEach((eq, idx) => {
+        html += `
+        <tr>
+            <td style="text-align:center; padding:8px;">${idx + 1}</td>
+            <td style="padding:8px;">${eq.nom}</td>
+            <td style="text-align:center; padding:8px;">${eq.j}</td>
+            <td style="text-align:center; padding:8px;">${eq.g}</td>
+            <td style="text-align:center; padding:8px;">${eq.diff > 0 ? '+' + eq.diff : eq.diff}</td>
+            <td style="text-align:center; padding:8px; color:#00ff66; font-weight:bold;">${eq.pts}</td>
+        </tr>`;
+    });
+    corps.innerHTML = html;
+}
+
+function changerOnglet(type) {
+    ongletActif = type;
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    const titres = { general: "Classement Général", t1: "Classement Tranche 1", t2: "Classement Tranche 2", t3: "Classement Tranche 3" };
+    document.getElementById("titre-classement-tab").innerText = titres[type];
+    
+    // Ajoute la couleur verte sur le bouton actif
+    event.target.classList.add('active');
+    calculerEtAfficherClassement();
 }
 
 function chargerScoresSauvegardes() {
@@ -71,24 +133,11 @@ window.onload = function() {
     genererCalendrier();
     chargerScoresSauvegardes();
     afficherMatchs();
+    calculerEtAfficherClassement();
     
     const btnPrec = document.getElementById("btn-prev");
     const btnSuiv = document.getElementById("btn-next");
     
-    if (btnPrec) {
-        btnPrec.onclick = () => {
-            if (journeeActuelle > 1) {
-                journeeActuelle--;
-                afficherMatchs();
-            }
-        };
-    }
-    if (btnSuiv) {
-        btnSuiv.onclick = () => {
-            if (journeeActuelle < totalJournees) {
-                journeeActuelle++;
-                afficherMatchs();
-            }
-        };
-    }
+    if (btnPrec) btnPrec.onclick = () => { if (journeeActuelle > 1) { journeeActuelle--; afficherMatchs(); } };
+    if (btnSuiv) btnSuiv.onclick = () => { if (journeeActuelle < totalJournees) { journeeActuelle++; afficherMatchs(); } };
 };
