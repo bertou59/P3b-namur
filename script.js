@@ -31,7 +31,6 @@ function afficherMatchs() {
     const matchs = donneesJournees[journeeActuelle] || [];
     let html = "";
     matchs.forEach((match, index) => {
-        // Vérifie si FCO Namur joue ce match pour jaunir toute la ligne
         let ligneClasse = (match.dom === "FCO Namur" || match.ext === "FCO Namur") ? "match-row fco-namur-row-highlight" : "match-row";
         
         html += `
@@ -93,7 +92,7 @@ function calculerEtAfficherClassement() {
             <td>${eq.j}</td>
             <td>${eq.g}</td>
             <td>${eq.diff > 0 ? '+' + eq.diff : eq.diff}</td>
-            <td>${eq.pts}</td>
+            <td class="pts-color">${eq.pts}</td>
         </tr>`;
     });
     corps.innerHTML = html;
