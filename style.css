@@ -71,8 +71,11 @@ body {
     border-radius: 8px;
 }
 .team-name {
-    width: 40%;
-    font-size: 15px;
+    width: 42%;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .team-name.dom {
     text-align: right;
@@ -82,17 +85,17 @@ body {
 }
 .score-container {
     display: flex;
-    gap: 8px;
+    gap: 4px;
 }
 .score-input {
-    width: 35px;
-    height: 30px;
+    width: 22px; 
+    height: 20px;
     text-align: center;
     background-color: white;
     color: black;
     border: none;
-    border-radius: 6px;
-    font-size: 16px;
+    border-radius: 4px;
+    font-size: 14px;
     font-weight: bold;
 }
 .classement-table {
@@ -114,4 +117,8 @@ body {
     text-align: center;
     font-size: 14px;
     border-bottom: 1px solid #333;
+}
+.fco-namur-highlight {
+    color: #ffff00 !important;
+    font-weight: bold;
 }
