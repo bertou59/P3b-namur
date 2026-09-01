@@ -31,17 +31,17 @@ function afficherMatchs() {
     const matchs = donneesJournees[journeeActuelle] || [];
     let html = "";
     matchs.forEach((match, index) => {
-        let classeDom = match.dom === "FCO Namur" ? "team-name dom fco-namur-highlight" : "team-name dom";
-        let classeExt = match.ext === "FCO Namur" ? "team-name ext fco-namur-highlight" : "team-name ext";
+        // Vérifie si FCO Namur joue ce match pour jaunir toute la ligne
+        let ligneClasse = (match.dom === "FCO Namur" || match.ext === "FCO Namur") ? "match-row fco-namur-row-highlight" : "match-row";
         
         html += `
-        <div class="match-row">
-            <span class="${classeDom}">${match.dom}</span>
+        <div class="${ligneClasse}">
+            <span class="team-name dom">${match.dom}</span>
             <div class="score-container">
                 <input type="number" class="score-input" value="${match.scoreDom}" oninput="mettreAJourScore(${index}, 'dom', this.value)">
                 <input type="number" class="score-input" value="${match.scoreExt}" oninput="mettreAJourScore(${index}, 'ext', this.value)">
             </div>
-            <span class="${classeExt}">${match.ext}</span>
+            <span class="team-name ext">${match.ext}</span>
         </div>`;
     });
     conteneur.innerHTML = html;
@@ -85,7 +85,7 @@ function calculerEtAfficherClassement() {
     if (!corps) return;
     let html = "";
     classement.forEach((eq, idx) => {
-        let classeLigne = eq.nom === "FCO Namur" ? ' class="fco-namur-highlight"' : '';
+        let classeLigne = eq.nom === "FCO Namur" ? ' class="fco-namur-row-highlight"' : '';
         html += `
         <tr${classeLigne}>
             <td>${idx + 1}</td>
@@ -93,7 +93,7 @@ function calculerEtAfficherClassement() {
             <td>${eq.j}</td>
             <td>${eq.g}</td>
             <td>${eq.diff > 0 ? '+' + eq.diff : eq.diff}</td>
-            <td style="font-weight:bold; ${eq.nom === "FCO Namur" ? "color:#ffff00;" : "color:#00ff66;"}">${eq.pts}</td>
+            <td>${eq.pts}</td>
         </tr>`;
     });
     corps.innerHTML = html;
