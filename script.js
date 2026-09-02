@@ -1,3 +1,14 @@
+// Détection du mode admin
+const params = new URLSearchParams(window.location.search);
+const isAdmin = params.get("admin") === "1234";
+
+if (isAdmin) {
+    document.getElementById("admin").style.display = "block";
+    document.getElementById("live").style.display = "none";
+} else {
+    document.getElementById("admin").style.display = "none";
+    document.getElementById("live").style.display = "block";
+}
 const urlCloud = "https://kvdb.io/BERTOU59/p3b-namur-live";
 
 let jj = {};
