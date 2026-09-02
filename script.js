@@ -1,45 +1,109 @@
-const CLUBS = ["Leuze A","Naninne B","Wépion B","Rhisnes B","Aische B","Sauvenière A","St-Germain","Temploux","Emines B","Petit-Waret A","Mazy A","Grand-Leez B","Boninne A","Ligny B","FCO Namur","Loyers B"];
-let journeeActuelle = 1, trancheActuelle = "general", M = {};
-const C = {
-1:["Leuze A","Naninne B","Wépion B","Rhisnes B","Aische B","Sauvenière A","St-Germain","Temploux","Emines B","Petit-Waret A","Mazy A","Grand-Leez B","Boninne A","Ligny B","FCO Namur","Loyers B"],
-2:["Rhisnes B","St-Germain","Naninne B","Mazy A","Sauvenière A","Wépion B","Loyers B","Aische B","Ligny B","FCO Namur","Grand-Leez B","Boninne A","Petit-Waret A","Leuze A","Temploux","Emines B"],
-3:["Leuze A","Temploux","Wépion B","St-Germain","Aische B","Ligny B","Sauvenière A","Loyers B","Emines B","Rhisnes B","Mazy A","Petit-Waret A","Boninne A","Naninne B","FCO Namur","Grand-Leez B"],
-4:["Rhisnes B","Leuze A","Naninne B","FCO Namur","St-Germain","Emines B","Loyers B","Wépion B","Ligny B","Sauvenière A","Grand-Leez B","Aische B","Petit-Waret A","Boninne A","Temploux","Mazy A"],
-5:["Leuze A","St-Germain","Wépion B","Emines B","Aische B","Naninne B","Sauvenière A","Grand-Leez B","Loyers B","Ligny B","Mazy A","Rhisnes B","Boninne A","Temploux","FCO Namur","Petit-Waret A"],
-6:["Rhisnes B","Boninne A","Naninne B","Sauvenière A","St-Germain","Mazy A","Emines B","Leuze A","Ligny B","Wépion B","Grand-Leez B","Loyers B","Petit-Waret A","Aische B","Temploux","FCO Namur"],
-7:["Wépion B","Leuze A","Aische B","Temploux","Sauvenière A","Petit-Waret A","Loyers B","Naninne B","Ligny B","Grand-Leez B","Mazy A","Emines B","Boninne A","St-Germain","FCO Namur","Rhisnes B"],
-8:["Rhisnes B","Aische B","Leuze A","Mazy A","Naninne B","Ligny B","St-Germain","FCO Namur","Emines B","Boninne A","Grand-Leez B","Wépion B","Petit-Waret A","Loyers B","Temploux","Sauvenière A"],
-9:["Wépion B","Mazy A","Aische B","St-Germain","Sauvenière A","Rhisnes B","Loyers B","Temploux","Ligny B","Petit-Waret A","Grand-Leez B","Naninne B","Boninne A","Leuze A","FCO Namur","Emines B"],
-10:["Rhisnes B","Loyers B","St-Germain","Sauvenière A","Emines B","Aische B","Leuze A","FCO Namur","Mazy A","Boninne A","Naninne B","Wépion B","Petit-Waret A","Grand-Leez B","Temploux","Ligny B"],
-11:["Naninne B","Petit-Waret A","Wépion B","Boninne A","Loyers B","St-Germain","FCO Namur","Mazy A","Aische B","Leuze A","Sauvenière A","Emines B","Ligny B","Rhisnes B","Grand-Leez B","Temploux"],
-12:["Rhisnes B","Grand-Leez B","Leuze A","Sauvenière A","St-Germain","Ligny B","Emines B","Loyers B","Mazy A","Aische B","Boninne A","FCO Namur","Petit-Waret A","Wépion B","Temploux","Naninne B"],
-13:["Naninne B","Rhisnes B","Wépion B","FCO Namur","Loyers B","Leuze A","Aische B","Boninne A","Sauvenière A","Mazy A","Ligny B","Emines B","Grand-Leez B","St-Germain","Petit-Waret A","Temploux"],
-14:["Rhisnes B","Petit-Waret A","Leuze A","Ligny B","Wépion B","Temploux","St-Germain","Naninne B","Emines B","Grand-Leez B","Mazy A","Loyers B","FCO Namur","Aische B","Boninne A","Sauvenière A"],
-15:["Naninne B","Emines B","Loyers B","Boninne A","Aische B","Wépion B","Sauvenière A","FCO Namur","Ligny B","Mazy A","Grand-Leez B","Leuze A","Petit-Waret A","St-Germain","Temploux","Rhisnes B"],
-16:["Naninne B","Leuze A","Rhisnes B","Wépion B","Loyers B","FCO Namur","Sauvenière A","Aische B","Temploux","St-Germain","Petit-Waret A","Emines B","Grand-Leez B","Mazy A","Ligny B","Boninne A"],
-17:["Wépion B","Sauvenière A","Leuze A","Petit-Waret A","St-Germain","Rhisnes B","FCO Namur","Ligny B","Mazy A","Naninne B","Emines B","Temploux","Aische B","Loyers B","Boninne A","Grand-Leez B"],
-18:["Rhisnes B","Emines B","Naninne B","Boninne A","Loyers B","Sauvenière A","St-Germain","Wépion B","Ligny B","Aische B","Temploux","Leuze A","Petit-Waret A","Mazy A","Grand-Leez B","FCO Namur"],
-19:["Leuze A","Rhisnes B","Wépion B","Loyers B","Emines B","St-Germain","Sauvenière A","Ligny B","Aische B","Grand-Leez B","FCO Namur","Naninne B","Boninne A","Petit-Waret A","Mazy A","Temploux"],
-20:["Naninne B","Aische B","Grand-Leez B","Sauvenière A","Ligny B","Loyers B","St-Germain","Leuze A","Rhisnes B","Mazy A","Temploux","Boninne A","Petit-Waret A","FCO Namur","Emines B","Wépion B"],
-21:["Leuze A","Emines B","Wépion B","Ligny B","Boninne A","Rhisnes B","Mazy A","St-Germain","Loyers B","Grand-Leez B","Sauvenière A","Naninne B","Aische B","Petit-Waret A","FCO Namur","Temploux"],
-22:["Naninne B","Loyers B","Rhisnes B","FCO Namur","Leuze A","Wépion B","Temploux","Aische B","Petit-Waret A","Sauvenière A","Grand-Leez B","Ligny B","Emines B","Mazy A","St-Germain","Boninne A"],
-23:["Wépion B","Grand-Leez B","Aische B","Rhisnes B","FCO Namur","St-Germain","Boninne A","Emines B","Mazy A","Leuze A","Ligny B","Naninne B","Loyers B","Petit-Waret A","Sauvenière A","Temploux"],
-24:["Rhisnes B","Sauvenière A","Naninne B","Grand-Leez B","Leuze A","Boninne A","St-Germain","Aische B","Temploux","Loyers B","Petit-Waret A","Ligny B","Emines B","FCO Namur","Mazy A","Wépion B"],
-25:["Wépion B","Naninne B","Loyers B","Rhisnes B","Sauvenière A","St-Germain","Aische B","Emines B","FCO Namur","Leuze A","Boninne A","Mazy A","Grand-Leez B","Petit-Waret A","Ligny B","Temploux"],
-26:["Leuze A","Aische B","Rhisnes B","Ligny B","Emines B","Sauvenière A","St-Germain","Loyers B","Temploux","Grand-Leez B","Petit-Waret A","Naninne B","Mazy A","FCO Namur","Boninne A","Wépion B"],
-27:["Wépion B","Petit-Waret A","Naninne B","Temploux","Grand-Leez B","Rhisnes B","Ligny B","St-Germain","Loyers B","Emines B","Sauvenière A","Leuze A","Aische B","Mazy A","FCO Namur","Boninne A"],
-28:["Leuze A","Loyers B","Rhisnes B","Naninne B","Boninne A","Aische B","Mazy A","Sauvenière A","Emines B","Ligny B","St-Germain","Grand-Leez B","Temploux","Petit-Waret A","FCO Namur","Wépion B"],
-29:["Petit-Waret A","Rhisnes B","Naninne B","St-Germain","Grand-Leez B","Emines B","Ligny B","Leuze A","Loyers B","Mazy A","Sauvenière A","Boninne A","Aische B","FCO Namur","Temploux","Wépion B"],
-30:["Wépion B","Aische B","FCO Namur","Sauvenière A","Boninne A","Loyers B","Mazy A","Ligny B","Leuze A","Grand-Leez B","Emines B","Naninne B","St-Germain","Petit-Waret A","Rhisnes B","Temploux"]
-};
-const D = {1:"22-23/08/26",2:"29-30/08/26",3:"05-06/09/26",4:"12-13/09/26",5:"19-20/09/26",6:"26-27/09/26",7:"03-04/10/26",8:"10-11/10/26",9:"17-18/10/26",10:"25/10/26",11:"31/10-01/11/26",12:"07-08/11/26",13:"14-15/11/26",14:"21-22/11/26",15:"28-29/11/26",16:"05-06/12/26",17:"12-13/12/26",18:"19-20/12/26",19:"16-17/01/27",20:"24/01/27",21:"30-31/01/27",22:"13-14/02/27",23:"20-21/02/27",24:"27-28/02/27",25:"13-14/03/27",26:"20-21/03/27",27:"03-04/04/27",28:"10-11/04/27",29:"18/04/27",30:"25/04/27"};
-for(let j=1;j<=30;j++){ M[j]=[]; let src=C[j]; if(src){ for(let i=0;i<16;i+=2) M[j].push({dom:src[i],ext:src[i+1],sD:"",sE:""}); } }
-function changerJournee(d) { let n = journeeActuelle + d; if (n >= 1 && n <= 30) { journeeActuelle = n; gen(); } }
-function changerTranche(t) { trancheActuelle = t; document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active')); if(t==='general') document.getElementById('tab-general').classList.add('active'); else document.getElementById(`tab-${t}`).classList.add('active'); document.getElementById('titre-classement').innerText = t === 'general' ? 'Classement Général' : `Classement Tranche ${t}`; calc(); }
-function gen() { document.getElementById("titre-journee").innerText = `Journée ${journeeActuelle}`; document.getElementById("date-j").innerText = D[journeeActuelle]; let h = ""; if(M[journeeActuelle]) { M[journeeActuelle].forEach((m, i) => { h += `<div class="match-card ${m.dom === "FCO Namur" || m.ext === "FCO Namur" ? "match-fco-namur" : ""}"><span class="equipe domicile">${m.dom}</span><div class="score-container"><input type="tel" class="score-input" value="${m.sD}" onchange="enregistrerScore(${i}, 'dom', this.value)"><input type="tel" class="score-input" value="${m.sE}" onchange="enregistrerScore(${i}, 'ext', this.value)"></div><span class="equipe exterieur">${m.ext}</span></div>`; }); } document.getElementById("liste-matchs").innerHTML = h; }
-function calc() { let stats = {}; CLUBS.forEach(c => { stats[c] = { nom: c, j: 0, g: 0, diff: 0, pts: 0 }; }); let jDeb = 1, jFin = 30; if (trancheActuelle === 1) { jDeb = 1; jFin = 10; } else if (trancheActuelle === 2) { jDeb = 11; jFin = 20; } else if (trancheActuelle === 3) { jDeb = 21; jFin = 30; } for (let j = jDeb; j <= jFin; j++) { if(M[j]) { M[j].forEach(m => { if (m.sD !== undefined && m.sE !== undefined && m.sD !== "" && m.sE !== "" && !isNaN(m.sD) && !isNaN(m.sE)) { let sd = parseInt(m.sD, 10), se = parseInt(m.sE, 10); stats[m.dom].j++; stats[m.ext].j++; stats[m.dom].diff += (sd - se); stats[m.ext].diff += (se - sd); if (sd > se) { stats[m.dom].pts += 3; stats[m.dom].g++; } else if (se > sd) { stats[m.ext].pts += 3; stats[m.ext].g++; } else { stats[m.dom].pts += 1; stats[m.ext].pts += 1; } } }); } } let tri = Object.values(stats).sort((a, b) => { if (b.pts !== a.pts) return b.pts - a.pts; if (b.g !== a.g) return b.g - a.g; return b.diff - a.diff; }); let h = ""; tri.forEach((c, idx) => { h += `<tr class="${c.nom === "FCO Namur" ? "ligne-fco-namur" : ""}"><td>${idx + 1}</td><td style="text-align:left;">${c.nom}</td><td>${c.j}</td><td>${c.g}</td><td>${c.diff > 0 ? '+' + c.diff : c.diff}</td><td>${c.pts}</td></tr>`; }); document.getElementById("corps-classement").innerHTML = h; }
-const DB_URL = "https://kvdb.io";
-function enregistrerScore(i, type, val) { let m = M[journeeActuelle][i]; if (type === 'dom') m.sD = val; if (type === 'ext') m.sE = val; calc(); envoyerScoresInternet(); }
-function envoyerScoresInternet() { fetch(DB_URL, { method: 'POST', body: JSON.stringify(M) }).catch(e => console.log("Erreur:", e)); }
-function chargerEnDirect() { fetch(DB_URL).then(r => r.json()).then(d => { if(d && Object.keys(d).length > 0){ M = d; gen(); calc(); } }).catch(e => console.log("Base vide.")); }
-gen(); calc(); chargerEnDirect(); setInterval(chargerEnDirect, 15000);
+// Chargement des données JSON
+async function chargerDonnees() {
+    const response = await fetch('saison-26-27.json');
+    const data = await response.json();
+    return data;
+}
+
+// Affichage des matchs
+function afficherMatchs(journee, data) {
+    const listeMatchs = document.getElementById('liste-matchs');
+    listeMatchs.innerHTML = '';
+
+    data.matchs[journee].forEach(match => {
+        const div = document.createElement('div');
+        div.className = 'match';
+
+        div.innerHTML = `
+            <span class="equipe">${match.visite}</span>
+            <span class="score">${match.score}</span>
+            <span class="equipe">${match.visiteur}</span>
+        `;
+
+        listeMatchs.appendChild(div);
+    });
+}
+
+// Calcul du classement
+function calculerClassement(data) {
+    const classement = {};
+
+    data.equipes.forEach(equipe => {
+        classement[equipe] = { points: 0, joues: 0, gagnes: 0, perdus: 0 };
+    });
+
+    Object.values(data.matchs).forEach(journee => {
+        journee.forEach(match => {
+            const [scoreA, scoreB] = match.score.split('-').map(Number);
+
+            classement[match.visite].joues++;
+            classement[match.visiteur].joues++;
+
+            if (scoreA > scoreB) {
+                classement[match.visite].gagnes++;
+                classement[match.visiteur].perdus++;
+                classement[match.visite].points += 3;
+            } else if (scoreB > scoreA) {
+                classement[match.visiteur].gagnes++;
+                classement[match.visite].perdus++;
+                classement[match.visiteur].points += 3;
+            } else {
+                classement[match.visite].points++;
+                classement[match.visiteur].points++;
+            }
+        });
+    });
+
+    return classement;
+}
+
+// Affichage du classement
+function afficherClassement(classement) {
+    const tableau = document.getElementById('tableau-classement');
+    tableau.innerHTML = '';
+
+    const equipesTriees = Object.entries(classement).sort((a, b) => b[1].points - a[1].points);
+
+    equipesTriees.forEach(([equipe, stats], index) => {
+        const row = document.createElement('tr');
+
+        row.innerHTML = `
+            <td>${index + 1}</td>
+            <td>${equipe}</td>
+            <td>${stats.points}</td>
+            <td>${stats.joues}</td>
+            <td>${stats.gagnes}</td>
+            <td>${stats.perdus}</td>
+        `;
+
+        tableau.appendChild(row);
+    });
+}
+
+// Changer de journée
+function changerJournee(direction, data) {
+    if (direction === 'prec' && data.journee > 1) {
+        data.journee--;
+    } else if (direction === 'suiv' && data.journee < data.totalJournees) {
+        data.journee++;
+    }
+
+    afficherMatchs(data.journee, data);
+}
+
+// Initialisation
+async function init() {
+    const data = await chargerDonnees();
+    data.journee = 1;
+    data.totalJournees = Object.keys(data.matchs).length;
+
+    afficherMatchs(data.journee, data);
+
+    const classement = calculerClassement(data);
+    afficherClassement(classement);
+
+    document.getElementById('prec').onclick = () => changerJournee('prec', data);
+    document.getElementById('suiv').onclick = () => changerJournee('suiv', data);
+}
+
+init();
