@@ -1,55 +1,36 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
-  <meta charset="UTF-8">
-  <title>Saison 26-27</title>
-  <link rel="stylesheet" href="./style.css">
+    <meta charset="UTF-8">
+    <title>P3B Namur</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-    
+
 <body>
-  <div class="app-container">
-    <h1>P3B NAMUR - LIVE</h1>
 
-    <div class="navigation">
-      <button onclick="changerJournee(-1)">Préc.</button>
-      <div>
-        <h2 id="titre-journee" style="font-size:1.2rem;">Journée 1</h2>
-        <div id="date-j">22-23/08/26</div>
-      </div>
-      <button onclick="changerJournee(1)">Suiv.</button>
+<!-- PAGE ADMIN -->
+<div id="admin" style="padding:20px;">
+    <h2>ADMIN – Scores</h2>
+
+    <div style="margin-bottom:20px;">
+        <button onclick="prec()">Préc.</button>
+        <span id="titre-journee"></span>
+        <button onclick="suiv()">Suiv.</button>
     </div>
 
-    <div id="liste-matchs"></div>
+    <div id="liste-admin"></div>
 
-    <div class="tabs">
-      <button id="tab-general" class="active" onclick="changerTranche('general')">Général</button>
-      <button id="tab-1" onclick="changerTranche(1)">Tranche 1</button>
-      <button id="tab-2" onclick="changerTranche(2)">Tranche 2</button>
-      <button id="tab-3" onclick="changerTranche(3)">Tranche 3</button>
-    </div>
+    <button id="btn-sauver" style="margin-top:20px;">Sauver</button>
+</div>
 
-    <h3 id="titre-classement" style="color:#00ff66; text-align:left; font-size:1rem; margin-top:15px;">
-      Classement Général
-    </h3>
-  
-    <table class="tableau-classement">
-      <thead>
-        <tr>
-          <th style="width:10%">Pl</th>
-          <th style="text-align:left; width:46%">Équipe</th>
-          <th>J</th>
-          <th>G</th>
-          <th>+/-</th>
-          <th>Pts</th>
-        </tr>
-      </thead>
-      <tbody id="corps-classement">
-      </tbody>
-    </table>
-  </div>
+<!-- PAGE LIVE -->
+<div id="live">
+    <h2>Résultats – LIVE</h2>
+    <div id="liste-live"></div>
+</div>
 
-  <script src="./script.js"></script>
+<script src="script-live.js"></script>
+<script src="script.js"></script>
+
 </body>
-
 </html>
