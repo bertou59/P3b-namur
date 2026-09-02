@@ -1,52 +1,55 @@
 <!DOCTYPE html>
-<html lang="fr">
-<head>
+<html lang="en" class="https://gstatic.com">
+
+  <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>P3B NAMUR - LIVE</title>
-    <link rel="stylesheet" href="./style.css?v=60">
-</head>
-<body>
-    <div class="container">
-        <h1 class="main-title">P3B NAMUR - LIVE</h1>
-        
-        <div class="navigation-journee">
-            <button id="btn-prev" class="btn-nav">Préc.</button>
-            <div class="infos-centre">
-                <h2 id="titre-classement">Journée 1</h2>
-                <span class="date-matchs">22-23/08/26</span>
-            </div>
-            <button id="btn-next" class="btn-nav">Suiv.</button>
-        </div>
+    <title>Saison 26-27</title>
+    https://gstatic.com<link rel="stylesheet" href="./style.css">
 
-        <div class="zone-matchs">
-            <div id="corps-matchs"></div>
-        </div>
+  </head>
+    
+  <body>
+  <div class="app-container">
+  <h1>P3B NAMUR - LIVE</h1>
 
-        <div class="onglets-tranches">
-            <button class="tab-btn active" onclick="changerOnglet('general')">Général</button>
-            <button class="tab-btn" onclick="changerOnglet('t1')">Tranche 1</button>
-            <button class="tab-btn" onclick="changerOnglet('t2')">Tranche 2</button>
-            <button class="tab-btn" onclick="changerOnglet('t3')">Tranche 3</button>
-        </div>
-
-        <div class="zone-classement">
-            <h3 id="titre-classement-tab" style="color: #00ff66; margin-top: 20px; text-align: center;">Classement Général</h3>
-            <table class="classement-table">
-                <thead>
-                    <tr>
-                        <th>Pl</th>
-                        <th style="text-align:left;">Équipe</th>
-                        <th>J</th>
-                        <th>G</th>
-                        <th>+/-</th>
-                        <th style="color: #00ffff;">Pts</th>
-                    </tr>
-                </thead>
-                <tbody id="corps-classement"></tbody>
-            </table>
-        </div>
+  <div class="navigation">
+    <button onclick="changerJournee(-1)">Préc.</button>
+    <div>
+      <h2 id="titre-journee" style="font-size:1.2rem;">Journée 1</h2>
+      <div id="date-j">22-23/08/26</div>
     </div>
-    <script src="./script-live.js
-</body>
+    <button onclick="changerJournee(1)">Suiv.</button>
+  </div>
+
+  <div id="liste-matchs"></div>
+
+  <div class="tabs">
+    <button id="tab-general" class="active" onclick="changerTranche('general')">Gral</button>
+    <button id="tab-1" onclick="changerTranche(1)">Tranche 1</button>
+    <button id="tab-2" onclick="changerTranche(2)">Tranche 2</button>
+    <button id="tab-3" onclick="changerTranche(3)">Tranche 3</button>
+  </div>
+
+  <h3 id="titre-classement" style="color:#00ff66; text-align:left; font-size:1rem; margin-top:15px;">Classement Général</h3>
+  
+  <table class="tableau-classement">
+    <thead>
+      <tr>
+        <th style="width:10%">Pl</th>
+        <th style="text-align:left; width:46%">Équipe</th>
+        <th>J</th>
+        <th>G</th>
+        <th>+/-</th>
+        <th>Pts</th>
+      </tr>
+    </thead>
+    <tbody id="corps-classement">
+      <!-- Le classement va s'afficher ici automatiquement -->
+    </tbody>
+  </table>
+</div>
+    <script src='https://cloudflare.com'></script><script  src="./script.js"></script>
+
+  </body>
+  
 </html>
