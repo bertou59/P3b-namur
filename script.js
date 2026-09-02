@@ -28,8 +28,11 @@ async function sauverBase() {
 }
 
 function afficherJournee() {
+    document.getElementById("titre-journee").textContent = "Journée " + jAct;
+
     const zone = document.getElementById("liste-admin");
     zone.innerHTML = "";
+
     jj[jAct].forEach((m, i) => {
         const div = document.createElement("div");
         div.className = "match-admin";
