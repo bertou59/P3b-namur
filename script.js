@@ -1,85 +1,52 @@
-// Détection du mode admin
-const params = new URLSearchParams(window.location.search);
-const isAdmin = params.get("admin") === "1234";
-
-if (isAdmin) {
-    document.getElementById("admin").style.display = "block";
-    document.getElementById("live").style.display = "none";
-} else {
-    document.getElementById("admin").style.display = "none";
-    document.getElementById("live").style.display = "block";
-}
-const urlCloud = "https://kvdb.io/BERTOU59/p3b-namur-live";
-
-let jj = {};
-const tot = 30;
-let jAct = 1;
-
-async function chargerBase() {
-    try {
-        const rep = await fetch(urlCloud);
-        const txt = await rep.text();
-        if (!txt || txt.trim() === "") {
-            jj = {};
-            for (let j = 1; j <= tot; j++) jj[j] = [];
-        } else {
-            jj = JSON.parse(txt);
-        }
-        afficherJournee();
-    } catch (e) {}
-}
-
-async function sauverBase() {
-    try {
-        await fetch(urlCloud, {
-            method: "POST",
-            body: JSON.stringify(jj)
-        });
-    } catch (e) {}
-}
-
-function afficherJournee() {
-    document.getElementById("titre-journee").textContent = "Journée " + jAct;
-
-    const zone = document.getElementById("liste-admin");
-    zone.innerHTML = "";
-
-    jj[jAct].forEach((m, i) => {
-        const div = document.createElement("div");
-        div.className = "match-admin";
-        div.innerHTML = `
-            <span>${m.visite}</span>
-            <input type="text" value="${m.score}" data-i="${i}" class="champ-score">
-            <span>${m.visiteur}</span>
-        `;
-        zone.appendChild(div);
-    });
-}
-
-document.addEventListener("input", e => {
-    if (e.target.classList.contains("champ-score")) {
-        const i = parseInt(e.target.dataset.i, 10);
-        jj[jAct][i].score = e.target.value;
-    }
-});
-
-function prec() {
-    if (jAct > 1) {
-        jAct--;
-        afficherJournee();
-    }
-}
-
-function suiv() {
-    if (jAct < tot) {
-        jAct++;
-        afficherJournee();
-    }
-}
-
-document.getElementById("btn-sauver").addEventListener("click", async () => {
-    await sauverBase();
-    alert("Scores enregistrés.");
-});
-
-chargerBase();
+const C = {
+"1":[
+{"visite":"Leuze A","visiteur":"Naninne B","score":""},
+{"visite":"Wépion B","visiteur":"Rhisnes B","score":""},
+{"visite":"Aische B","visiteur":"Sauvenière A","score":""},
+{"visite":"St-Germain","visiteur":"Temploux","score":""},
+{"visite":"Emines B","visiteur":"Petit-Waret A","score":""},
+{"visite":"Mazy A","visiteur":"Grand-Leez B","score":""},
+{"visite":"Boninne A","visiteur":"Ligny B","score":""},
+{"visite":"FCO Namur","visiteur":"Loyers B","score":""}
+],
+"2":[
+{"visite":"Rhisnes B","visiteur":"St-Germain","score":""},
+{"visite":"Naninne B","visiteur":"Mazy A","score":""},
+{"visite":"Sauvenière A","visiteur":"Wépion B","score":""},
+{"visite":"Loyers B","visiteur":"Aische B","score":""},
+{"visite":"Ligny B","visiteur":"FCO Namur","score":""},
+{"visite":"Grand-Leez B","visiteur":"Boninne A","score":""},
+{"visite":"Petit-Waret A","visiteur":"Leuze A","score":""},
+{"visite":"Temploux","visiteur":"Emines B","score":""}
+],
+"3":[
+{"visite":"Leuze A","visiteur":"Temploux","score":""},
+{"visite":"Wépion B","visiteur":"St-Germain","score":""},
+{"visite":"Aische B","visiteur":"Ligny B","score":""},
+{"visite":"Sauvenière A","visiteur":"Loyers B","score":""},
+{"visite":"Emines B","visiteur":"Rhisnes B","score":""},
+{"visite":"Mazy A","visiteur":"Petit-Waret A","score":""},
+{"visite":"Boninne A","visiteur":"Naninne B","score":""},
+{"visite":"FCO Namur","visiteur":"Grand-Leez B","score":""}
+],
+"4":[
+{"visite":"Rhisnes B","visiteur":"Leuze A","score":""},
+{"visite":"Naninne B","visiteur":"FCO Namur","score":""},
+{"visite":"St-Germain","visiteur":"Emines B","score":""},
+{"visite":"Loyers B","visiteur":"Wépion B","score":""},
+{"visite":"Ligny B","visiteur":"Sauvenière A","score":""},
+{"visite":"Grand-Leez B","visiteur":"Aische B","score":""},
+{"visite":"Petit-Waret A","visiteur":"Boninne A","score":""},
+{"visite":"Temploux","visiteur":"Mazy A","score":""}
+],
+"5":[
+{"visite":"Leuze A","visiteur":"St-Germain","score":""},
+{"visite":"Wépion B","visiteur":"Emines B","score":""},
+{"visite":"Aische B","visiteur":"Naninne B","score":""},
+{"visite":"Sauvenière A","visiteur":"Grand-Leez B","score":""},
+{"visite":"Loyers B","visiteur":"Ligny B","score":""},
+{"visite":"Mazy A","visiteur":"Rhisnes B","score":""},
+{"visite":"Boninne A","visiteur":"Temploux","score":""},
+{"visite":"FCO Namur","visiteur":"Petit-Waret A","score":""}
+]
+};
