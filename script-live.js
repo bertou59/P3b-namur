@@ -1,32 +1,131 @@
-const cal30Fin = {
-    21: [[ "Leuze A", "Emines B" ], [ "Wépion B", "Ligny B" ], [ "Boninne A", "Rhisnes B" ], [ "Mazy A", "St-Germain" ], [ "Loyers B", "Gd-Leez B" ], [ "Sauvenière A", "Naninne B" ], [ "Aische B", "Pt-Waret A" ], [ "FCO Namur", "Temploux" ]],
-    22: [[ "Naninne B", "Loyers B" ], [ "Rhisnes B", "FCO Namur" ], [ "Leuze A", "Wépion B" ], [ "Temploux", "Aische B" ], [ "Pt-Waret A", "Sauvenière A" ], [ "Gd-Leez B", "Ligny B" ], [ "Emines B", "Mazy A" ], [ "St-Germain", "Boninne A" ]],
-    23: [[ "Wépion B", "Gd-Leez B" ], [ "Aische B", "Rhisnes B" ], [ "FCO Namur", "St-Germain" ], [ "Boninne A", "Emines B" ], [ "Mazy A", "Leuze A" ], [ "Ligny B", "Naninne B" ], [ "Loyers B", "Pt-Waret A" ], [ "Sauvenière A", "Temploux" ]],
-    24: [[ "Rhisnes B", "Sauvenière A" ], [ "Naninne B", "Gd-Leez B" ], [ "Leuze A", "Boninne A" ], [ "St-Germain", "Aische B" ], [ "Temploux", "Loyers B" ], [ "Pt-Waret A", "Ligny B" ], [ "Emines B", "FCO Namur" ], [ "Mazy A", "Wépion B" ]],
-    25: [[ "Wépion B", "Naninne B" ], [ "Loyers B", "Rhisnes B" ], [ "Sauvenière A", "St-Germain" ], [ "Aische B", "Emines B" ], [ "FCO Namur", "Leuze A" ], [ "Boninne A", "Mazy A" ], [ "Gd-Leez B", "Pt-Waret A" ], [ "Ligny B", "Temploux" ]],
-    26: [[ "Leuze A", "Aische B" ], [ "Rhisnes B", "Ligny B" ], [ "Emines B", "Sauvenière A" ], [ "St-Germain", "Loyers B" ], [ "Temploux", "Gd-Leez B" ], [ "Pt-Waret A", "Naninne B" ], [ "Mazy A", "FCO Namur" ], [ "Boninne A", "Wépion B" ]],
-    27: [[ "Wépion B", "Pt-Waret A" ], [ "Naninne B", "Temploux" ], [ "Gd-Leez B", "Rhisnes B" ], [ "Ligny B", "St-Germain" ], [ "Loyers B", "Emines B" ], [ "Sauvenière A", "Leuze A" ], [ "Aische B", "Mazy A" ], [ "FCO Namur", "Boninne A" ]],
-    28: [[ "Leuze A", "Loyers B" ], [ "Rhisnes B", "Naninne B" ], [ "Boninne A", "Aische B" ], [ "Mazy A", "Sauvenière A" ], [ "Emines B", "Ligny B" ], [ "St-Germain", "Gd-Leez B" ], [ "Temploux", "Pt-Waret A" ], [ "FCO Namur", "Wépion B" ]],
-    29: [[ "Pt-Waret A", "Rhisnes B" ], [ "Naninne B", "St-Germain" ], [ "Gd-Leez B", "Emines B" ], [ "Ligny B", "Leuze A" ], [ "Loyers B", "Mazy A" ], [ "Sauvenière A", "Boninne A" ], [ "Aische B", "FCO Namur" ], [ "Temploux", "Wépion B" ]],
-    30: [[ "St-Germain", "Wépion B" ], [ "Emines B", "Aische B" ], [ "Leuze A", "Boninne A" ], [ "Sauvenière A", "FCO Namur" ], [ "Pt-Waret A", "Ligny B" ], [ "Naninne B", "Mazy A" ], [ "Rhisnes B", "Gd-Leez B" ], [ "Temploux", "Loyers B" ]]
-};
+let jj = {};
+const tot = 30;
+let jAct = 1;
+let ong = 'general';
 
-let jj = {}; const tot = 30; let jAct = 1; let ong = 'general';
-const urlCloud = "https://jsonbin.io";
-let aLeDroitDeModifier = false;
+// URL de la base cloud (LIVE)
+const urlCloud = "https://kvdb.io/BERTOU59/p3b-namur-live";
 
-function genererCalendrierComplet() {
-    const calendrierComplet = { ...cal30, ...cal30Suite, ...cal30Fin };
-    for (let j = 1; j <= tot; j++) {
-        jj[j] = calendrierComplet[j].map(m => ({ dom: m[0], ext: m[1], scoreDom: "", scoreExt: "" }));
+// Charger les scores en direct
+async function chargerEnDirect() {
+    try {
+        const rep = await fetch(urlCloud);
+        const txt = await rep.text();
+
+        if (!txt || txt.trim() === "") return;
+
+        jj = JSON.parse(txt);
+        afficherScores();
+        afficherClassement();
+    } catch (e) {
+        console.log("Erreur chargement live :", e);
     }
 }
 
-function afficherMatchs() {
-    const c = document.getElementById("corps-matchs"); if (!c) return;
-    document.getElementById("titre-classement").innerText = `Journée ${jAct}`;
-    let html = "";
-    (jj[jAct] || []).forEach((m, i) => {
-        let cl = (m.dom === "FCO Namur" || m.ext === "FCO Namur") ? "match-row fco-namur-row-highlight" : "match-row";
-        let desactive = aLeDroitDeModifier ? "" : " disabled";
-        html += `<div class="${cl}"><span class="team-name dom">${m.dom}</span><div class="score-container"><input type="number" class="score-input" value="${m.scoreDom}"${desactive} oninput="majS(${i},'dom',this.value)">
+// Sauvegarder les scores
+async function sauverScores() {
+    try {
+        await fetch(urlCloud, {
+            method: "POST",
+            body: JSON.stringify(jj)
+        });
+    } catch (e) {
+        console.log("Erreur sauvegarde :", e);
+    }
+}
+
+// Afficher les scores dans la liste
+function afficherScores() {
+    const liste = document.getElementById("liste-matchs");
+    liste.innerHTML = "";
+
+    jj[jAct].forEach(m => {
+        const div = document.createElement("div");
+        div.className = "match";
+
+        div.innerHTML = `
+            <span class="equipe">${m.visite}</span>
+            <span class="score">${m.score}</span>
+            <span class="equipe">${m.visiteur}</span>
+        `;
+
+        liste.appendChild(div);
+    });
+}
+
+// Calcul du classement
+function afficherClassement() {
+    const tab = document.getElementById("tableau-classement");
+    tab.innerHTML = "";
+
+    const cls = {};
+
+    jj[1].forEach(m => {
+        cls[m.visite] = { pts: 0, j: 0, g: 0, p: 0 };
+        cls[m.visiteur] = { pts: 0, j: 0, g: 0, p: 0 };
+    });
+
+    for (let j = 1; j <= tot; j++) {
+        jj[j].forEach(m => {
+            const [a, b] = m.score.split("-").map(Number);
+
+            cls[m.visite].j++;
+            cls[m.visiteur].j++;
+
+            if (a > b) {
+                cls[m.visite].g++;
+                cls[m.visiteur].p++;
+                cls[m.visite].pts += 3;
+            } else if (b > a) {
+                cls[m.visiteur].g++;
+                cls[m.visite].p++;
+                cls[m.visiteur].pts += 3;
+            } else {
+                cls[m.visite].pts++;
+                cls[m.visiteur].pts++;
+            }
+        });
+    }
+
+    const tri = Object.entries(cls).sort((a, b) => b[1].pts - a[1].pts);
+
+    tri.forEach(([eq, s], i) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+            <td>${i + 1}</td>
+            <td>${eq}</td>
+            <td>${s.pts}</td>
+            <td>${s.j}</td>
+            <td>${s.g}</td>
+            <td>${s.p}</td>
+        `;
+        tab.appendChild(tr);
+    });
+}
+
+// Changer de tranche
+function changerTranche(x) {
+    ong = x;
+    afficherClassement();
+}
+
+// Navigation journée
+function prec() {
+    if (jAct > 1) {
+        jAct--;
+        afficherScores();
+    }
+}
+
+function suiv() {
+    if (jAct < tot) {
+        jAct++;
+        afficherScores();
+    }
+}
+
+// Mise à jour automatique toutes les 15 secondes
+setInterval(chargerEnDirect, 15000);
+
+// Chargement initial
+chargerEnDirect();
