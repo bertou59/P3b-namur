@@ -1,109 +1,71 @@
-// Chargement des données JSON
-async function chargerDonnees() {
-    const response = await fetch('saison-26-27.json');
-    const data = await response.json();
-    return data;
+const urlCloud = "https://kvdb.io/BERTOU59/p3b-namur-live";
+
+let jj = {};
+const tot = 30;
+let jAct = 1;
+
+async function chargerBase() {
+    try {
+        const rep = await fetch(urlCloud);
+        const txt = await rep.text();
+        if (!txt || txt.trim() === "") {
+            jj = {};
+            for (let j = 1; j <= tot; j++) jj[j] = [];
+        } else {
+            jj = JSON.parse(txt);
+        }
+        afficherJournee();
+    } catch (e) {}
 }
 
-// Affichage des matchs
-function afficherMatchs(journee, data) {
-    const listeMatchs = document.getElementById('liste-matchs');
-    listeMatchs.innerHTML = '';
-
-    data.matchs[journee].forEach(match => {
-        const div = document.createElement('div');
-        div.className = 'match';
-
-        div.innerHTML = `
-            <span class="equipe">${match.visite}</span>
-            <span class="score">${match.score}</span>
-            <span class="equipe">${match.visiteur}</span>
-        `;
-
-        listeMatchs.appendChild(div);
-    });
-}
-
-// Calcul du classement
-function calculerClassement(data) {
-    const classement = {};
-
-    data.equipes.forEach(equipe => {
-        classement[equipe] = { points: 0, joues: 0, gagnes: 0, perdus: 0 };
-    });
-
-    Object.values(data.matchs).forEach(journee => {
-        journee.forEach(match => {
-            const [scoreA, scoreB] = match.score.split('-').map(Number);
-
-            classement[match.visite].joues++;
-            classement[match.visiteur].joues++;
-
-            if (scoreA > scoreB) {
-                classement[match.visite].gagnes++;
-                classement[match.visiteur].perdus++;
-                classement[match.visite].points += 3;
-            } else if (scoreB > scoreA) {
-                classement[match.visiteur].gagnes++;
-                classement[match.visite].perdus++;
-                classement[match.visiteur].points += 3;
-            } else {
-                classement[match.visite].points++;
-                classement[match.visiteur].points++;
-            }
+async function sauverBase() {
+    try {
+        await fetch(urlCloud, {
+            method: "POST",
+            body: JSON.stringify(jj)
         });
-    });
-
-    return classement;
+    } catch (e) {}
 }
 
-// Affichage du classement
-function afficherClassement(classement) {
-    const tableau = document.getElementById('tableau-classement');
-    tableau.innerHTML = '';
-
-    const equipesTriees = Object.entries(classement).sort((a, b) => b[1].points - a[1].points);
-
-    equipesTriees.forEach(([equipe, stats], index) => {
-        const row = document.createElement('tr');
-
-        row.innerHTML = `
-            <td>${index + 1}</td>
-            <td>${equipe}</td>
-            <td>${stats.points}</td>
-            <td>${stats.joues}</td>
-            <td>${stats.gagnes}</td>
-            <td>${stats.perdus}</td>
+function afficherJournee() {
+    const zone = document.getElementById("liste-admin");
+    zone.innerHTML = "";
+    jj[jAct].forEach((m, i) => {
+        const div = document.createElement("div");
+        div.className = "match-admin";
+        div.innerHTML = `
+            <span>${m.visite}</span>
+            <input type="text" value="${m.score}" data-i="${i}" class="champ-score">
+            <span>${m.visiteur}</span>
         `;
-
-        tableau.appendChild(row);
+        zone.appendChild(div);
     });
 }
 
-// Changer de journée
-function changerJournee(direction, data) {
-    if (direction === 'prec' && data.journee > 1) {
-        data.journee--;
-    } else if (direction === 'suiv' && data.journee < data.totalJournees) {
-        data.journee++;
+document.addEventListener("input", e => {
+    if (e.target.classList.contains("champ-score")) {
+        const i = parseInt(e.target.dataset.i, 10);
+        jj[jAct][i].score = e.target.value;
     }
+});
 
-    afficherMatchs(data.journee, data);
+function prec() {
+    if (jAct > 1) {
+        jAct--;
+        afficherJournee();
+    }
 }
 
-// Initialisation
-async function init() {
-    const data = await chargerDonnees();
-    data.journee = 1;
-    data.totalJournees = Object.keys(data.matchs).length;
-
-    afficherMatchs(data.journee, data);
-
-    const classement = calculerClassement(data);
-    afficherClassement(classement);
-
-    document.getElementById('prec').onclick = () => changerJournee('prec', data);
-    document.getElementById('suiv').onclick = () => changerJournee('suiv', data);
+function suiv() {
+    if (jAct < tot) {
+        jAct++;
+        afficherJournee();
+    }
 }
 
-init();
+document.getElementById("btn-sauver").addEventListener("click", async () => {
+    await sauverBase();
+    alert("Scores enregistrés.");
+});
+
+chargerBase();
